@@ -1,0 +1,270 @@
+body {
+  font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* 導覽列分頁按鈕 */
+.nav-tab {
+  color: #475569;
+  background-color: transparent;
+}
+
+.nav-tab:hover {
+  color: #0f172a;
+}
+
+.nav-tab.active {
+  background-color: #ffffff;
+  color: #047857;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+/* 小節篩選膠囊 */
+.filter-pill {
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  padding: 0.45rem 0.95rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #475569;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.filter-pill:hover {
+  border-color: #10b981;
+  color: #047857;
+  transform: translateY(-1px);
+}
+
+.filter-pill.active {
+  border-color: #059669;
+  background-color: #059669;
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(5, 150, 105, 0.28);
+}
+
+/* 漂浮與微互動動畫 */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(4deg); }
+}
+
+.animate-float {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+@keyframes cardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card-enter {
+  animation: cardSlideUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* 手風琴展開動畫與箭頭旋轉 */
+.accordion-chevron {
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.accordion-item.open .accordion-chevron {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  display: none;
+}
+
+.accordion-item.open .accordion-content {
+  display: block;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 講義表格響應式容器 */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 0.875rem;
+  border: 1px solid #e2e8f0;
+}
+
+.study-table {
+  width: 100%;
+  min-width: 540px;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.study-table th {
+  background-color: #f8fafc;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 700;
+  color: #334155;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.study-table td {
+  padding: 0.75rem 1rem;
+  vertical-align: top;
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
+  line-height: 1.6;
+}
+
+.study-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* 測驗選項與回饋動畫 */
+.quiz-option {
+  width: 100%;
+  text-align: left;
+  border-radius: 1rem;
+  border: 2px solid #e2e8f0;
+  background-color: #ffffff;
+  padding: 1rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1e293b;
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.quiz-option:hover:not(:disabled) {
+  border-color: #10b981;
+  background-color: #ecfdf5;
+  transform: translateX(4px);
+}
+
+.quiz-option:disabled {
+  cursor: default;
+}
+
+@keyframes popSuccess {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.025); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shakeError {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.quiz-option.correct {
+  border-color: #10b981;
+  background-color: #ecfdf5;
+  color: #065f46;
+  animation: popSuccess 0.35s ease;
+}
+
+.quiz-option.wrong {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+  color: #991b1b;
+  animation: shakeError 0.4s ease;
+}
+
+.quiz-option.dimmed {
+  opacity: 0.55;
+}
+
+/* 互動實驗室：試管氣泡動畫 */
+@keyframes bubbleRise {
+  0% {
+    transform: translateY(0) scale(0.7);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(-68px) scale(1.25);
+    opacity: 0;
+  }
+}
+
+.lab-bubble {
+  position: absolute;
+  bottom: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.75);
+  animation: bubbleRise 1.2s ease-in infinite;
+}
+
+/* 酵素反應分子動畫 */
+@keyframes enzymePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.enzyme-active {
+  animation: enzymePulse var(--pulse-speed, 0.9s) ease-in-out infinite;
+}
+
+/* 光合作用陽光脈動 & 氣泡 */
+@keyframes sunPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.5)); }
+  50% { transform: scale(1.1); filter: drop-shadow(0 0 14px rgba(251, 191, 36, 0.85)); }
+}
+
+.sun-glow {
+  animation: sunPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes flowRight {
+  0% { transform: translateX(-6px); opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { transform: translateX(8px); opacity: 0.3; }
+}
+
+.flow-arrow {
+  display: inline-block;
+  animation: flowRight 1.3s ease-in-out infinite;
+}
+
+/* 彩帶慶祝粒子 */
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-20px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+.confetti-piece {
+  position: fixed;
+  top: -10px;
+  z-index: 60;
+  pointer-events: none;
+  border-radius: 2px;
+  animation: confettiFall var(--fall-duration, 2.4s) linear forwards;
+}

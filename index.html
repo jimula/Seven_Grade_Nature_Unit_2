@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>七年級自然｜第2章 養分 互動複習站</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-emerald-200 selection:text-emerald-900">
+  <!-- 頂部導覽列 -->
+  <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
+    <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
+      <div class="flex items-center gap-3">
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-xl text-white shadow-sm">
+          🧬
+        </div>
+        <div>
+          <p class="text-xs font-bold tracking-wider text-emerald-600">七年級自然科複習</p>
+          <h1 class="text-base font-black text-slate-900 sm:text-lg">第 2 章：養分</h1>
+        </div>
+      </div>
+
+      <!-- 主功能切換導覽列 -->
+      <nav class="flex w-full items-center gap-2 rounded-2xl bg-slate-100 p-1 sm:w-auto" aria-label="主要功能切換">
+        <button
+          id="nav-study"
+          type="button"
+          class="nav-tab active flex-1 rounded-xl px-4 py-2 text-sm font-bold transition-all sm:flex-initial"
+          data-target="study-section"
+        >
+          📖 重點觀念吸收區
+        </button>
+        <button
+          id="nav-quiz"
+          type="button"
+          class="nav-tab flex-1 rounded-xl px-4 py-2 text-sm font-bold transition-all sm:flex-initial"
+          data-target="quiz-section"
+        >
+          🎯 互動測驗挑戰區
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
+    <!-- ==================== 1. 重點觀念吸收區 ==================== -->
+    <section id="study-section" class="space-y-6">
+      <!-- 歡迎橫幅 -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 p-6 text-white shadow-lg sm:p-8">
+        <div class="relative z-10 max-w-2xl">
+          <span class="inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-bold backdrop-blur-sm">
+            100% 講義重點整理
+          </span>
+          <h2 class="mt-3 text-2xl font-black tracking-tight sm:text-3xl">
+            把第 2 章「養分」一次搞懂！
+          </h2>
+          <p class="mt-2 text-sm leading-relaxed text-emerald-50 sm:text-base">
+            點選下方小節標籤快速切換，展開手風琴卡片就能複習表格、實驗步驟與老師特別提醒的必考重點。準備好了就去「互動測驗挑戰區」試試身手吧！
+          </p>
+        </div>
+        <div class="pointer-events-none absolute -right-4 -bottom-4 text-8xl opacity-20 sm:text-9xl animate-float">🌿</div>
+      </div>
+
+      <!-- 小節篩選膠囊列 -->
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div id="chapter-filters" class="flex flex-wrap gap-2" role="tablist" aria-label="章節篩選">
+          <button type="button" class="filter-pill active" data-chapter="all">全部小節</button>
+          <button type="button" class="filter-pill" data-chapter="2-1">2-1 食物中的養分</button>
+          <button type="button" class="filter-pill" data-chapter="2-2">2-2 酵素</button>
+          <button type="button" class="filter-pill" data-chapter="2-3">2-3 植物如何獲得養分</button>
+          <button type="button" class="filter-pill" data-chapter="2-4">2-4 動物如何獲得養分</button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button
+            id="expand-all-btn"
+            type="button"
+            class="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-600 shadow-sm transition hover:bg-slate-100"
+          >
+            全部展開
+          </button>
+          <button
+            id="collapse-all-btn"
+            type="button"
+            class="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-600 shadow-sm transition hover:bg-slate-100"
+          >
+            全部收合
+          </button>
+        </div>
+      </div>
+
+      <!-- 知識卡片 / 手風琴容器 -->
+      <div id="study-cards-container" class="space-y-4"></div>
+
+      <!-- 底部引導前往測驗 -->
+      <div class="flex flex-col items-center justify-between gap-4 rounded-3xl border border-emerald-200 bg-emerald-50/80 p-6 text-center sm:flex-row sm:text-left">
+        <div>
+          <h3 class="text-lg font-black text-emerald-900">觀念都吸收完畢了嗎？</h3>
+          <p class="mt-1 text-sm text-emerald-700">來挑戰精選自講義的 8 道實戰題目，立刻檢驗你的實力！</p>
+        </div>
+        <button
+          id="go-to-quiz-btn"
+          type="button"
+          class="shrink-0 rounded-2xl bg-emerald-600 px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-emerald-700 active:scale-95"
+        >
+          前往互動測驗挑戰 →
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== 2. 互動測驗挑戰區 ==================== -->
+    <section id="quiz-section" class="hidden space-y-6">
+      <!-- 測驗進度與狀態列 -->
+      <div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <span class="inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800">
+              互動測驗挑戰
+            </span>
+            <h2 class="mt-1 text-xl font-black text-slate-900 sm:text-2xl">第 2 章隨堂小考（共 8 題）</h2>
+          </div>
+          <div class="flex items-center gap-3 text-sm font-bold">
+            <span class="rounded-xl bg-slate-100 px-3 py-1.5 text-slate-700">
+              題目：<span id="quiz-progress-text" class="text-emerald-600">1 / 8</span>
+            </span>
+            <span class="rounded-xl bg-emerald-50 px-3 py-1.5 text-emerald-700">
+              目前得分：<span id="quiz-score-live">0</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- 進度條 -->
+        <div class="mt-4 h-3 w-full overflow-hidden rounded-full bg-slate-100">
+          <div
+            id="quiz-progress-bar"
+            class="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-300"
+            style="width: 12.5%"
+          ></div>
+        </div>
+      </div>
+
+      <!-- 題目卡片容器 -->
+      <div id="quiz-card" class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <div class="flex flex-wrap items-center gap-2">
+          <span id="q-badge-section" class="rounded-lg bg-teal-100 px-2.5 py-1 text-xs font-bold text-teal-800"></span>
+          <span id="q-badge-type" class="rounded-lg bg-indigo-100 px-2.5 py-1 text-xs font-bold text-indigo-800"></span>
+        </div>
+
+        <h3 id="q-question-text" class="mt-4 text-lg font-bold leading-relaxed text-slate-900 sm:text-xl"></h3>
+
+        <!-- 選項區 -->
+        <div id="q-options-container" class="mt-6 space-y-3"></div>
+
+        <!-- 即時回饋區 -->
+        <div id="q-feedback" class="mt-6 hidden rounded-2xl border p-4 transition-all">
+          <div class="flex items-start gap-3">
+            <span id="q-feedback-icon" class="text-2xl leading-none"></span>
+            <div class="flex-1">
+              <p id="q-feedback-title" class="text-base font-black"></p>
+              <p id="q-feedback-explanation" class="mt-1.5 text-sm leading-relaxed"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 下一題 / 查看結果按鈕 -->
+        <div class="mt-6 flex justify-end">
+          <button
+            id="q-next-btn"
+            type="button"
+            class="hidden rounded-2xl bg-slate-900 px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-slate-800 active:scale-95"
+          >
+            下一題 →
+          </button>
+        </div>
+      </div>
+
+      <!-- 測驗總結畫面 -->
+      <div id="quiz-summary" class="hidden rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-sm sm:p-10">
+        <div id="summary-emoji" class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100 text-5xl">
+          🎉
+        </div>
+        <h3 class="mt-4 text-2xl font-black text-slate-900 sm:text-3xl">測驗完成！</h3>
+        <p id="summary-message" class="mt-2 text-base font-medium text-slate-600"></p>
+
+        <div class="mx-auto mt-6 grid max-w-md grid-cols-3 gap-3">
+          <div class="rounded-2xl bg-slate-50 p-4">
+            <p class="text-xs font-bold text-slate-500">總題數</p>
+            <p id="summary-total" class="mt-1 text-2xl font-black text-slate-800">8</p>
+          </div>
+          <div class="rounded-2xl bg-emerald-50 p-4">
+            <p class="text-xs font-bold text-emerald-700">答對題數</p>
+            <p id="summary-correct" class="mt-1 text-2xl font-black text-emerald-600">0</p>
+          </div>
+          <div class="rounded-2xl bg-amber-50 p-4">
+            <p class="text-xs font-bold text-amber-700">總分</p>
+            <p id="summary-score" class="mt-1 text-2xl font-black text-amber-600">0</p>
+          </div>
+        </div>
+
+        <!-- 錯題 / 作答回顧 -->
+        <div id="summary-review" class="mx-auto mt-8 max-w-2xl space-y-3 text-left"></div>
+
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <button
+            id="retry-quiz-btn"
+            type="button"
+            class="rounded-2xl bg-emerald-600 px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-emerald-700 active:scale-95"
+          >
+            🔄 再挑戰一次
+          </button>
+          <button
+            id="back-to-study-btn"
+            type="button"
+            class="rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:bg-slate-100"
+          >
+            📖 回到重點觀念複習
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-12 border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
+    <p>七年級自然科｜第 2 章 養分 互動式複習網站（內容 100% 依據課堂講義編製）</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
